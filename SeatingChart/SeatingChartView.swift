@@ -9,19 +9,26 @@ import SwiftUI
 
 struct SeatingChartView: View {
     @State var fieldRect: CGRect = .zero
+    @State private var tribunes: [Int: [Tribune]] = [:]
     var body: some View {
-        ZStack {
-            Group {
-                Stadium(fieldRect: $fieldRect)
-                    .stroke(.secondary, lineWidth: 2)
-                Field().path(in: fieldRect).fill(.green)
-                Field().path(in: fieldRect).stroke(.red, lineWidth: 3)
+        VStack {
+            ZStack {
+                Group {
+                    Stadium(fieldRect: $fieldRect, tribunes: $tribunes)
+                        .stroke(.secondary, lineWidth: 2)
+                    ForEach(tribunes.flatMap(\.value), id: \.self) { tribune in
+                        tribune.path
+                            .stroke(.purple, style: StrokeStyle(lineWidth: 1, lineJoin: .round))
+                    }
+                    Field().path(in: fieldRect).fill(.green)
+                    Field().path(in: fieldRect).stroke(.red, lineWidth: 3)
+                }
+                .padding()
             }
+            .aspectRatio(contentMode: .fit)
+            .background(.green.opacity(0.2))
             .padding()
         }
-        .aspectRatio(contentMode: .fit)
-        .background(.green.opacity(0.2))
-        .padding()
     }
 }
 

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC27BE8D29A3D2340086411B /* Tribune.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC27BE8C29A3D2340086411B /* Tribune.swift */; };
+		EC27BE8F29A3D2690086411B /* RectTribune.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC27BE8E29A3D2690086411B /* RectTribune.swift */; };
+		EC27BE9129A3D44F0086411B /* Sector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC27BE9029A3D44F0086411B /* Sector.swift */; };
+		EC27BE9329A3DDE80086411B /* GZLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC27BE9229A3DDE80086411B /* GZLog.swift */; };
 		EC99C21329A34FE2008B9EF1 /* SeatingChartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC99C21229A34FE2008B9EF1 /* SeatingChartApp.swift */; };
 		EC99C21529A34FE2008B9EF1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC99C21429A34FE2008B9EF1 /* ContentView.swift */; };
 		EC99C21729A34FE3008B9EF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC99C21629A34FE3008B9EF1 /* Assets.xcassets */; };
@@ -18,6 +22,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EC27BE8C29A3D2340086411B /* Tribune.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tribune.swift; sourceTree = "<group>"; };
+		EC27BE8E29A3D2690086411B /* RectTribune.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectTribune.swift; sourceTree = "<group>"; };
+		EC27BE9029A3D44F0086411B /* Sector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sector.swift; sourceTree = "<group>"; };
+		EC27BE9229A3DDE80086411B /* GZLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GZLog.swift; sourceTree = "<group>"; };
 		EC99C20F29A34FE2008B9EF1 /* SeatingChart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeatingChart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC99C21229A34FE2008B9EF1 /* SeatingChartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatingChartApp.swift; sourceTree = "<group>"; };
 		EC99C21429A34FE2008B9EF1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,9 +67,13 @@
 		EC99C21129A34FE2008B9EF1 /* SeatingChart */ = {
 			isa = PBXGroup;
 			children = (
+				EC27BE9229A3DDE80086411B /* GZLog.swift */,
+				EC27BE8C29A3D2340086411B /* Tribune.swift */,
+				EC27BE8E29A3D2690086411B /* RectTribune.swift */,
 				EC99C21229A34FE2008B9EF1 /* SeatingChartApp.swift */,
 				EC99C21429A34FE2008B9EF1 /* ContentView.swift */,
 				EC99C22029A351DE008B9EF1 /* SeatingChartView.swift */,
+				EC27BE9029A3D44F0086411B /* Sector.swift */,
 				ECB9D9E529A38FA200AC4DF3 /* Field.swift */,
 				EC99C22229A3537A008B9EF1 /* Stadium.swift */,
 				EC99C22429A3539A008B9EF1 /* Constants.swift */,
@@ -152,9 +164,13 @@
 				EC99C22529A3539A008B9EF1 /* Constants.swift in Sources */,
 				EC99C22129A351DE008B9EF1 /* SeatingChartView.swift in Sources */,
 				ECB9D9E629A38FA200AC4DF3 /* Field.swift in Sources */,
+				EC27BE8F29A3D2690086411B /* RectTribune.swift in Sources */,
 				EC99C21529A34FE2008B9EF1 /* ContentView.swift in Sources */,
+				EC27BE8D29A3D2340086411B /* Tribune.swift in Sources */,
 				EC99C21329A34FE2008B9EF1 /* SeatingChartApp.swift in Sources */,
 				EC99C22329A3537A008B9EF1 /* Stadium.swift in Sources */,
+				EC27BE9129A3D44F0086411B /* Sector.swift in Sources */,
+				EC27BE9329A3DDE80086411B /* GZLog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
