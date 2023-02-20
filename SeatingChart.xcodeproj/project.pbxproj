@@ -11,6 +11,9 @@
 		EC99C21529A34FE2008B9EF1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC99C21429A34FE2008B9EF1 /* ContentView.swift */; };
 		EC99C21729A34FE3008B9EF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC99C21629A34FE3008B9EF1 /* Assets.xcassets */; };
 		EC99C21A29A34FE3008B9EF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC99C21929A34FE3008B9EF1 /* Preview Assets.xcassets */; };
+		EC99C22129A351DE008B9EF1 /* SeatingChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC99C22029A351DE008B9EF1 /* SeatingChartView.swift */; };
+		EC99C22329A3537A008B9EF1 /* Stadium.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC99C22229A3537A008B9EF1 /* Stadium.swift */; };
+		EC99C22529A3539A008B9EF1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC99C22429A3539A008B9EF1 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,9 @@
 		EC99C21429A34FE2008B9EF1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EC99C21629A34FE3008B9EF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC99C21929A34FE3008B9EF1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EC99C22029A351DE008B9EF1 /* SeatingChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatingChartView.swift; sourceTree = "<group>"; };
+		EC99C22229A3537A008B9EF1 /* Stadium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stadium.swift; sourceTree = "<group>"; };
+		EC99C22429A3539A008B9EF1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +59,9 @@
 			children = (
 				EC99C21229A34FE2008B9EF1 /* SeatingChartApp.swift */,
 				EC99C21429A34FE2008B9EF1 /* ContentView.swift */,
+				EC99C22029A351DE008B9EF1 /* SeatingChartView.swift */,
+				EC99C22229A3537A008B9EF1 /* Stadium.swift */,
+				EC99C22429A3539A008B9EF1 /* Constants.swift */,
 				EC99C21629A34FE3008B9EF1 /* Assets.xcassets */,
 				EC99C21829A34FE3008B9EF1 /* Preview Content */,
 			);
@@ -137,8 +146,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC99C22529A3539A008B9EF1 /* Constants.swift in Sources */,
+				EC99C22129A351DE008B9EF1 /* SeatingChartView.swift in Sources */,
 				EC99C21529A34FE2008B9EF1 /* ContentView.swift in Sources */,
 				EC99C21329A34FE2008B9EF1 /* SeatingChartApp.swift in Sources */,
+				EC99C22329A3537A008B9EF1 /* Stadium.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
