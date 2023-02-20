@@ -14,6 +14,7 @@
 		EC99C22129A351DE008B9EF1 /* SeatingChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC99C22029A351DE008B9EF1 /* SeatingChartView.swift */; };
 		EC99C22329A3537A008B9EF1 /* Stadium.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC99C22229A3537A008B9EF1 /* Stadium.swift */; };
 		EC99C22529A3539A008B9EF1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC99C22429A3539A008B9EF1 /* Constants.swift */; };
+		ECB9D9E629A38FA200AC4DF3 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB9D9E529A38FA200AC4DF3 /* Field.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		EC99C22029A351DE008B9EF1 /* SeatingChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatingChartView.swift; sourceTree = "<group>"; };
 		EC99C22229A3537A008B9EF1 /* Stadium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stadium.swift; sourceTree = "<group>"; };
 		EC99C22429A3539A008B9EF1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		ECB9D9E529A38FA200AC4DF3 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				EC99C21229A34FE2008B9EF1 /* SeatingChartApp.swift */,
 				EC99C21429A34FE2008B9EF1 /* ContentView.swift */,
 				EC99C22029A351DE008B9EF1 /* SeatingChartView.swift */,
+				ECB9D9E529A38FA200AC4DF3 /* Field.swift */,
 				EC99C22229A3537A008B9EF1 /* Stadium.swift */,
 				EC99C22429A3539A008B9EF1 /* Constants.swift */,
 				EC99C21629A34FE3008B9EF1 /* Assets.xcassets */,
@@ -148,6 +151,7 @@
 			files = (
 				EC99C22529A3539A008B9EF1 /* Constants.swift in Sources */,
 				EC99C22129A351DE008B9EF1 /* SeatingChartView.swift in Sources */,
+				ECB9D9E629A38FA200AC4DF3 /* Field.swift in Sources */,
 				EC99C21529A34FE2008B9EF1 /* ContentView.swift in Sources */,
 				EC99C21329A34FE2008B9EF1 /* SeatingChartApp.swift in Sources */,
 				EC99C22329A3537A008B9EF1 /* Stadium.swift in Sources */,
