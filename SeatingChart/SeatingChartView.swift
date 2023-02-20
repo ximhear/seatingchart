@@ -11,9 +11,13 @@ struct SeatingChartView: View {
     @State var fieldRect: CGRect = .zero
     var body: some View {
         ZStack {
-           Stadium(fieldRect: $fieldRect)
-                .stroke(.secondary, lineWidth: 2)
-                .padding()
+            Group {
+                Stadium(fieldRect: $fieldRect)
+                    .stroke(.secondary, lineWidth: 2)
+                Field().path(in: fieldRect).fill(.green)
+                Field().path(in: fieldRect).stroke(.red, lineWidth: 3)
+            }
+            .padding()
         }
         .aspectRatio(contentMode: .fit)
         .background(.green.opacity(0.2))
