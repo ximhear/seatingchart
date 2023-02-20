@@ -21,9 +21,13 @@ struct Sector: Shape {
                 return
             }
             Task {
-                tribunes[index] = computeRectTribunesPaths(at:rect, corner: corner)
+                tribunes[index] = computeTribunes(at: rect, with: corner)
             }
         }
+    }
+    
+    private func computeTribunes(at rect: CGRect, with corner: CGFloat) -> [Tribune] {
+        computeRectTribunesPaths(at: rect, corner: corner) + computeArcTribunesPaths(at: rect, corner: corner)
     }
     
     private func computeRectTribunesPaths(at rect: CGRect, corner: CGFloat) -> [Tribune] {
@@ -43,9 +47,52 @@ struct Sector: Shape {
         (0..<Int(vc)).forEach { index in
             let y = rect.minY + corner + spv / 2.0 + (tribuneSize.width + spv) * Double(index)
             tribunes.append(makeRectTribuneAt(x: rect.minX + offset, y: y, rotated:  true))
-            tribunes.append(makeRectTribuneAt(x: rect.maxY - offset - tribuneSize.height, y: y, rotated: true))
+            tribunes.append(makeRectTribuneAt(x: rect.maxX - offset - tribuneSize.height, y: y, rotated: true))
         }
         return tribunes
+    }
+    
+    private func computeArcTribunesPaths(at rect: CGRect, corner: CGFloat) -> [Tribune] {
+        
+        let or = corner - offset
+        let ir = corner - offset - tribuneSize.height
+        let arcLength = ir * (.pi / 2)
+        let theta = asin(tribuneSize.width / 2.0 / ir) * 2.0
+        let cnt = Int(arcLength / (ir * theta))
+        let spaceAngle = (Double.pi / 2.0 - theta * Double(cnt)) / Double(cnt)
+        
+        let arcs: [CGFloat: CGPoint] = [
+            .pi: .init(x: rect.minX + corner, y: rect.minY + corner),
+            3 * .pi / 2 : .init(x: rect.maxX - corner, y: rect.minY + corner),
+            0: .init(x: rect.maxX - corner, y: rect.maxY - corner),
+            .pi / 2 : .init(x: rect.minX + corner, y: rect.maxY - corner)
+        ]
+        
+        return arcs.reduce(into: [Tribune]()) { partialResult, arc in
+            var sa = arc.key + spaceAngle / 2.0
+            let center = arc.value
+            let arcTribunes = (0..<cnt).map { index in
+                let osp = CGPoint(
+                    x: center.x + or * cos(sa),
+                    y: center.y + or * sin(sa))
+                let isp = CGPoint(
+                    x: center.x + ir * cos(sa + theta),
+                    y: center.y + ir * sin(sa + theta))
+                
+                
+                let arcTribune = ArcTribune(
+                    center: center,
+                    or: or,
+                    osp: osp,
+                    ir: ir,
+                    isp: isp,
+                    sa: sa, ea: sa + theta)
+                
+                sa += theta + spaceAngle
+                return Tribune(path: arcTribune.path(in: .zero))
+            }
+            partialResult.append(contentsOf: arcTribunes)
+        }
     }
     
     private func makeRectTribuneAt(x: CGFloat, y: CGFloat, rotated: Bool = false) -> Tribune {

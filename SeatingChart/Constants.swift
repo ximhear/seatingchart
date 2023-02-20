@@ -9,5 +9,5 @@ import SwiftUI
 
 enum Constants {
     static let sectorCount = 4
-    static let h2vRatio: Double = 1.25
+    static let h2vRatio: Double = 1.3
 }
