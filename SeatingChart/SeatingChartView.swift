@@ -63,9 +63,6 @@ struct SeatingChartView: View {
             }
             .scaleEffect(zoom, anchor: zoomAnchor)
             .aspectRatio(contentMode: .fit)
-            .onTapGesture(coordinateSpace: .named("stadium")) { tap in
-                zoomAnchor = UnitPoint.init(x: tap.x / size.width, y: tap.y / size.height)
-            }
             .background(.green.opacity(0.2))
             .padding()
             .onChange(of: tribunes) {
