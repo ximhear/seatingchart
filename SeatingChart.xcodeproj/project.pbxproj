@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC06826F29A4EBC10058D583 /* LinkedAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC06826E29A4EBC10058D583 /* LinkedAnimation.swift */; };
 		EC27BE8D29A3D2340086411B /* Tribune.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC27BE8C29A3D2340086411B /* Tribune.swift */; };
 		EC27BE8F29A3D2690086411B /* RectTribune.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC27BE8E29A3D2690086411B /* RectTribune.swift */; };
 		EC27BE9129A3D44F0086411B /* Sector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC27BE9029A3D44F0086411B /* Sector.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EC06826E29A4EBC10058D583 /* LinkedAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedAnimation.swift; sourceTree = "<group>"; };
 		EC27BE8C29A3D2340086411B /* Tribune.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tribune.swift; sourceTree = "<group>"; };
 		EC27BE8E29A3D2690086411B /* RectTribune.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectTribune.swift; sourceTree = "<group>"; };
 		EC27BE9029A3D44F0086411B /* Sector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sector.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				EC99C21229A34FE2008B9EF1 /* SeatingChartApp.swift */,
 				EC99C21429A34FE2008B9EF1 /* ContentView.swift */,
 				EC99C22029A351DE008B9EF1 /* SeatingChartView.swift */,
+				EC06826E29A4EBC10058D583 /* LinkedAnimation.swift */,
 				EC27BE9029A3D44F0086411B /* Sector.swift */,
 				EC27BE9429A3ECCD0086411B /* ArcTribune.swift */,
 				ECB9D9E529A38FA200AC4DF3 /* Field.swift */,
@@ -171,6 +174,7 @@
 				EC99C21529A34FE2008B9EF1 /* ContentView.swift in Sources */,
 				EC27BE8D29A3D2340086411B /* Tribune.swift in Sources */,
 				EC99C21329A34FE2008B9EF1 /* SeatingChartApp.swift in Sources */,
+				EC06826F29A4EBC10058D583 /* LinkedAnimation.swift in Sources */,
 				EC99C22329A3537A008B9EF1 /* Stadium.swift in Sources */,
 				EC27BE9129A3D44F0086411B /* Sector.swift in Sources */,
 				EC27BE9529A3ECCD0086411B /* ArcTribune.swift in Sources */,
