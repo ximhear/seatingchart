@@ -18,9 +18,8 @@ struct SeatingChartView: View {
     
     var body: some View {
         VStack {
-            Text("\(zoomAnchor.x) x \(zoomAnchor.y)")
-            Text("\(size.width) x \(size.height)")
             ZStack {
+//                Color.red.opacity(0.2)
                 Group {
                     Stadium(fieldRect: $fieldRect, tribunes: $tribunes)
                         .trim(from: 0, to: percentage)
@@ -32,17 +31,17 @@ struct SeatingChartView: View {
                             .background {
                                 tribune.path
                                     .trim(from: 0, to: percentage)
-                                    .fill(selectedTribune == tribune ? .white : .blue)
+                                    .fill(selectedTribune == tribune ? .white : .blue.opacity(0.2))
                             }
                             .onTapGesture(coordinateSpace: .named("stadium")) { tap in
                                 let unselected = selectedTribune == tribune
                                 let anchor = UnitPoint(x: tap.x / size.width, y: tap.y / size.height)
-                                LinkedAnimation.easeInOut(for: 1) {
-                                    zoom = unselected ? 1.0 : 12
-                                }.link(to: .easeInOut(for: 1, action: {
+                                LinkedAnimation.easeInOut(for: 0.3) {
                                     selectedTribune = unselected ? nil : tribune
                                     zoomAnchor = unselected ? .center : anchor
-                                }), reverse: !unselected)
+                                }.link(to: .easeInOut(for: 0.5, action: {
+                                    zoom = unselected ? 1.0 : 12
+                                }), reverse: unselected)
                             }
                     }
                     Field().path(in: fieldRect)
@@ -54,8 +53,19 @@ struct SeatingChartView: View {
                 }
             }
             .coordinateSpace(name: "stadium")
+            .overlay {
+                GeometryReader<Color> { proxy in
+                    Task {
+                        size = proxy.size
+                    }
+                    return Color.clear
+                }
+            }
             .scaleEffect(zoom, anchor: zoomAnchor)
             .aspectRatio(contentMode: .fit)
+            .onTapGesture(coordinateSpace: .named("stadium")) { tap in
+                zoomAnchor = UnitPoint.init(x: tap.x / size.width, y: tap.y / size.height)
+            }
             .background(.green.opacity(0.2))
             .padding()
             .onChange(of: tribunes) {
@@ -64,14 +74,6 @@ struct SeatingChartView: View {
                 }
                 withAnimation(.easeInOut(duration: 1)) {
                     percentage = 1
-                }
-            }
-            .overlay {
-                GeometryReader<Color> { proxy in
-                    Task {
-                        size = proxy.size
-                    }
-                    return Color.clear
                 }
             }
         }
