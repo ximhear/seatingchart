@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SeatShape: Shape {
+    let rotation: CGFloat
     func path(in rect: CGRect) -> Path {
         Path { path in
             let vs = rect.height * 0.1
@@ -27,26 +28,38 @@ struct SeatShape: Shape {
             path.addRoundedRect(in: squabRect, cornerSize: cornerSize)
             path.move(to: .init(x: rect.width / 2.0 + oy / tan(skewAngle) - skewShift / 2.0, y: rect.height / 3.0))
             path.addLine(to: .init(x: rect.width / 2.0 - skewShift / 2.0, y: rect.height / 2.0))
+            let rotationCenter = CGPoint(x: rect.width / 2.0, y: rect.height / 2.0)
+            let t = CGAffineTransform(translationX: -rect.width / 2.0, y: -rect.height / 2.0 )
+            let tb = CGAffineTransform(translationX: rect.width / 2.0, y: rect.height / 2.0 )
+            path = path.applying(t)
+            path = path.applying(CGAffineTransform(rotationAngle: rotation))
+            path = path.applying(tb)
         }
     }
 }
 
 struct SeatPreview: View {
     let seatSize = 200.0
+    @State var rotation: Float = 0.0
     var body: some View {
-        ZStack {
-            SeatShape().path(in: .init(x: 0, y: 0, width: seatSize, height: seatSize))
-                .fill(.blue)
-            SeatShape().path(in: .init(x: 0, y: 0, width: seatSize, height: seatSize))
-                .stroke(lineWidth: 2)
+        VStack {
+            ZStack {
+                SeatShape(rotation: CGFloat(-rotation)).path(in: .init(x: 0, y: 0, width: seatSize, height: seatSize))
+                    .fill(.blue)
+                SeatShape(rotation: CGFloat(-rotation)).path(in: .init(x: 0, y: 0, width: seatSize, height: seatSize))
+                    .stroke(lineWidth: 2)
+            }
+            .frame(width: seatSize, height: seatSize)
+            .background(.yellow)
+            Slider(value: $rotation, in: 0.0...(2 * .pi), step: .pi / 20)
+            Text("\(rotation)")
         }
-        .frame(width: seatSize, height: seatSize)
+        .padding()
     }
 }
 
 struct SeatShape_Previews: PreviewProvider {
     static var previews: some View {
         SeatPreview()
-            .background(.yellow)
     }
 }
