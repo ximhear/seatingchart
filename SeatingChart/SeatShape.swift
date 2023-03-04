@@ -30,7 +30,7 @@ struct SeatShape: Shape {
             path.addLine(to: .init(x: rect.width / 2.0 - skewShift / 2.0, y: rect.height / 2.0))
             let rotationCenter = CGPoint(x: rect.width / 2.0, y: rect.height / 2.0)
             let t = CGAffineTransform(translationX: -rect.width / 2.0, y: -rect.height / 2.0 )
-            let tb = CGAffineTransform(translationX: rect.width / 2.0, y: rect.height / 2.0 )
+            let tb = CGAffineTransform(translationX: rect.width / 2.0 + rect.minX, y: rect.height / 2.0 + rect.minY )
             path = path.applying(t)
             path = path.applying(CGAffineTransform(rotationAngle: rotation))
             path = path.applying(tb)

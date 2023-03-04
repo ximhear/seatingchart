@@ -50,6 +50,15 @@ struct SeatingChartView: View {
                     Field().path(in: fieldRect)
                         .trim(from: 0, to: percentage)
                         .stroke(.red, lineWidth: 3)
+                    if let selectedTribune {
+                        ForEach(selectedTribune.seats) { seat in
+                            ZStack {
+                                seat.path
+                                    .fill(.blue)
+                                seat.path.stroke(.black, lineWidth: 0.05)
+                            }
+                        }
+                    }
                 }
             }
             .coordinateSpace(name: "stadium")

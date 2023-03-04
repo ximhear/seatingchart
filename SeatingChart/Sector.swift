@@ -38,16 +38,16 @@ struct Sector: Shape {
         let sph = (sw - Double(hc) * tribuneSize.width) / Double(hc)
         let spv = (sh - Double(vc) * tribuneSize.width) / Double(vc)
         var tribunes: [Tribune] = []
-        (0..<Int(hc)).forEach { index in
+        (0..<hc).forEach { index in
             let x = rect.minX + corner + sph / 2.0 + (tribuneSize.width + sph) * Double(index)
-            tribunes.append(makeRectTribuneAt(x: x, y: rect.minY + offset))
-            tribunes.append(makeRectTribuneAt(x: x, y: rect.maxY - offset - tribuneSize.height))
+            tribunes.append(makeRectTribuneAt(x: x, y: rect.minY + offset, vertical: false, rotation: 0))
+            tribunes.append(makeRectTribuneAt(x: x, y: rect.maxY - offset - tribuneSize.height, vertical: false, rotation: -.pi))
         }
         
-        (0..<Int(vc)).forEach { index in
+        (0..<vc).forEach { index in
             let y = rect.minY + corner + spv / 2.0 + (tribuneSize.width + spv) * Double(index)
-            tribunes.append(makeRectTribuneAt(x: rect.minX + offset, y: y, rotated:  true))
-            tribunes.append(makeRectTribuneAt(x: rect.maxX - offset - tribuneSize.height, y: y, rotated: true))
+            tribunes.append(makeRectTribuneAt(x: rect.minX + offset, y: y, vertical:  true, rotation: -.pi / 2.0))
+            tribunes.append(makeRectTribuneAt(x: rect.maxX - offset - tribuneSize.height, y: y, vertical: true, rotation: .pi / 2.0))
         }
         return tribunes
     }
@@ -89,14 +89,38 @@ struct Sector: Shape {
                     sa: sa, ea: sa + theta)
                 
                 sa += theta + spaceAngle
-                return Tribune(path: arcTribune.path(in: .zero))
+                return Tribune(path: arcTribune.path(in: .zero), seats: [])
             }
             partialResult.append(contentsOf: arcTribunes)
         }
     }
     
-    private func makeRectTribuneAt(x: CGFloat, y: CGFloat, rotated: Bool = false) -> Tribune {
-        Tribune(path: RectTribune().path(in: .init(x: x, y: y, width: rotated ? tribuneSize.height : tribuneSize.width, height: rotated ? tribuneSize.width : tribuneSize.height)))
+    private func makeRectTribuneAt(x: CGFloat, y: CGFloat, vertical: Bool, rotation: CGFloat) -> Tribune {
+        let rect = CGRect(x: x,
+                          y: y,
+                          width: vertical ? tribuneSize.height : tribuneSize.width,
+                          height: vertical ? tribuneSize.width : tribuneSize.height)
+        return Tribune(path: RectTribune().path(in: rect),
+                       seats: computeSeats(for: rect, at: rotation))
+    }
+    
+    func computeSeats(for tribune: CGRect, at rotation: CGFloat) -> [Seat] {
+        let seatSize = tribuneSize.height * 0.1
+        let colNumber = Int(tribune.width / seatSize)
+        let rowNumber = Int(tribune.height / seatSize)
+        let sh = (tribune.width - CGFloat(colNumber) * seatSize) / CGFloat(colNumber)
+        let sv = (tribune.height - CGFloat(rowNumber) * seatSize) / CGFloat(rowNumber)
+        var seats: [Seat] = []
+        (0..<colNumber).forEach { col in
+            let x = tribune.minX + sh / 2.0 + (sh + seatSize) * CGFloat(col)
+            (0..<rowNumber).forEach { row in
+                let y = tribune.minY + sv / 2.0 + (sv + seatSize) * CGFloat(row)
+                let sr = CGRect(x: x, y: y, width: seatSize, height: seatSize)
+                GZLogFunc(sr)
+                seats.append(Seat(id: col * rowNumber + row, path: SeatShape(rotation: rotation).path(in: sr)))
+            }
+        }
+        return seats
     }
 }
 
