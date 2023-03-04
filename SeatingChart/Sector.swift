@@ -89,7 +89,7 @@ struct Sector: Shape {
                     sa: sa, ea: sa + theta)
                 
                 sa += theta + spaceAngle
-                return Tribune(path: arcTribune.path(in: .zero), seats: [])
+                return Tribune(path: arcTribune.path(in: .zero), seats: computeSeats(for: arcTribune))
             }
             partialResult.append(contentsOf: arcTribunes)
         }
@@ -117,7 +117,33 @@ struct Sector: Shape {
                 let y = tribune.minY + sv / 2.0 + (sv + seatSize) * CGFloat(row)
                 let sr = CGRect(x: x, y: y, width: seatSize, height: seatSize)
                 GZLogFunc(sr)
-                seats.append(Seat(id: col * rowNumber + row, path: SeatShape(rotation: rotation).path(in: sr)))
+                seats.append(Seat(id: "\(row) \(col)", path: SeatShape(rotation: rotation).path(in: sr)))
+            }
+        }
+        return seats
+    }
+    
+    func computeSeats(for arcTribune: ArcTribune) -> [Seat] {
+        let seatSize = tribuneSize.height * 0.1
+        let rowNumber = Int(tribuneSize.height / seatSize)
+        let sv = (tribuneSize.height - CGFloat(rowNumber) * seatSize) / CGFloat(rowNumber)
+        var seats: [Seat] = []
+        (0..<rowNumber).forEach { row in
+            let r = arcTribune.or - sv / 2.0 - (sv + seatSize) * CGFloat(row) - seatSize
+            let arcLength = (arcTribune.ea - arcTribune.sa) * r
+            let theta = asin(seatSize / 2.0 / r) * 2.0
+            let cnt = Int(arcLength / (r * theta))
+            let spaceAngle: CGFloat = ((arcTribune.ea - arcTribune.sa) - theta * CGFloat(cnt)) / CGFloat(cnt)
+            (0..<cnt).forEach { index in
+                let sa = arcTribune.sa + spaceAngle / 2.0 + (theta + spaceAngle) * CGFloat(index) + theta / 2.0
+                let seatCenter = CGPoint(
+                    x: arcTribune.center.x + (r + seatSize / 2.0) * cos(sa),
+                    y: arcTribune.center.y + (r + seatSize / 2.0) * sin(sa))
+                let seatRect = CGRect(x: seatCenter.x - seatSize / 2.0,
+                                      y: seatCenter.y - seatSize / 2.9,
+                                      width: seatSize,
+                                      height: seatSize)
+                seats.append(Seat(id: "\(row) \(index)", path: SeatShape(rotation: sa + .pi / 2.0).path(in: seatRect)))
             }
         }
         return seats

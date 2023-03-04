@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Seat: Hashable, Equatable, Identifiable {
-    var id: Int
+    var id: String
     var path: Path
     
     func hash(into hasher: inout Hasher) {
