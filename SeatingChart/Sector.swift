@@ -116,7 +116,7 @@ struct Sector: Shape {
             (0..<rowNumber).forEach { row in
                 let y = tribune.minY + sv / 2.0 + (sv + seatSize) * CGFloat(row)
                 let sr = CGRect(x: x, y: y, width: seatSize, height: seatSize)
-                GZLogFunc(sr)
+//                GZLogFunc(sr)
                 seats.append(Seat(id: "\(row) \(col)", path: SeatShape(rotation: rotation).path(in: sr)))
             }
         }
