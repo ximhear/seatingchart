@@ -85,8 +85,8 @@ struct SeatingChartView: View {
                         }
                     }
                 }
-//                .background(.yellow)
                 .onTapGesture { tap in
+                    GZLogFunc(tap)
                     if let selectedTribune, selectedTribune.path.contains(tap) {
                         findAndSelectSeat(at: tap, in: selectedTribune)
                     }
@@ -102,7 +102,7 @@ struct SeatingChartView: View {
                         return Color.clear
                     }
                 }
-                .rotationEffect(rotation + currentRotation, anchor: zoomAnchor)
+//                .rotationEffect(rotation + currentRotation, anchor: zoomAnchor)
                 .scaleEffect(zoom * manualZoom, anchor: zoomAnchor)
                 .offset(offset + drag)
                 .simultaneousGesture(dragging)
@@ -110,7 +110,6 @@ struct SeatingChartView: View {
                 .simultaneousGesture(rotationGesture)
                 .aspectRatio(contentMode: .fit)
                 .background(.green.opacity(0.2))
-                .padding()
                 .onChange(of: tribunes) {
                     guard $0.keys.count == Constants.sectorCount else {
                         return
@@ -120,7 +119,7 @@ struct SeatingChartView: View {
                     }
                 }
             }
-            .background(.red.opacity(0.2))
+            .padding()
         }
     }
     
@@ -141,7 +140,8 @@ struct SeatingChartView: View {
     }
     
     func findAndSelectTribune(at point: CGPoint, with proxy: GeometryProxy) {
-        GZLogFunc()
+        GZLogFunc(point)
+        GZLogFunc(proxy.size)
         let tribune = tribunes.flatMap(\.value)
             .first { tribune in
                 tribune.path.boundingRect.contains(point)
@@ -153,12 +153,9 @@ struct SeatingChartView: View {
         
         GZLogFunc(unselected)
         LinkedAnimation.easeInOut(for: 0.7) {
-            GZLogFunc()
             zoom = unselected ? 1.0 : 25
-            GZLogFunc(zoom)
         }
         .link(to: .easeInOut(for: 0.3, action: {
-            GZLogFunc()
             selectedTribune = unselected ? nil : tribune
             zoomAnchor = unselected ? .center : anchor
             offset = .zero
