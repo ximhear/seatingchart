@@ -21,6 +21,9 @@ struct SeatingChartView: View {
     @GestureState var currentRotation: Angle = .radians(0)
     @State var rotation: Angle = .radians(0)
     @State var selectedSeats: [Seat] = []
+    @State var seatPercentage: CGFloat = .zero
+    @Binding var zoomed: Bool
+    @Binding var selectedTicketsNumber: Int
     
     var dragging: some Gesture {
         DragGesture()
@@ -39,6 +42,9 @@ struct SeatingChartView: View {
             }
             .onEnded { value in
                 zoom *= value
+                withAnimation {
+                    zoomed = zoom > 1.0
+                }
             }
     }
     
@@ -79,12 +85,29 @@ struct SeatingChartView: View {
                         ForEach(selectedTribune.seats) { seat in
                             ZStack {
                                 seat.path
-                                    .fill(.blue)
-                                seat.path.stroke(.black, lineWidth: 0.05)
+                                    .trim(from: 0, to: seatPercentage)
+                                    .fill(selectedSeats.contains(seat) ? .green : .blue)
+                                seat.path
+                                    .trim(from: 0, to: seatPercentage)
+                                    .stroke(.black, lineWidth: 0.05)
                             }
                         }
                     }
                 }
+                .onChange(of: zoomed, perform: { newValue in
+                    if !newValue && zoom > 1 {
+                        LinkedAnimation.easeInOut(for: 0.7) {
+                            zoom = 1.0
+                            seatPercentage = 0
+                        }
+                        .link(to: .easeInOut(for: 0.3, action: {
+                            selectedTribune = nil
+                            zoomAnchor = .center
+                            offset = .zero
+                        }), reverse: false)
+                        
+                    }
+                })
                 .onTapGesture { tap in
                     GZLogFunc(tap)
                     if let selectedTribune, selectedTribune.path.contains(tap) {
@@ -136,6 +159,7 @@ struct SeatingChartView: View {
             else {
                 selectedSeats.append(seat)
             }
+            selectedTicketsNumber = selectedSeats.count
         }
     }
     
@@ -149,11 +173,14 @@ struct SeatingChartView: View {
         let unselected = tribune == selectedTribune
         let anchor = UnitPoint(x: point.x / proxy.size.width,
                                y: point.y / proxy.size.height)
+        seatPercentage = selectedTribune == nil || !unselected ? 0.0 : 1.0
         GZLogFunc(anchor)
         
         GZLogFunc(unselected)
-        LinkedAnimation.easeInOut(for: 0.7) {
+        LinkedAnimation.easeInOut(for: 2.7) {
             zoom = unselected ? 1.0 : 25
+            seatPercentage = unselected ? 0.0 : 1.0
+            zoomed = !unselected
         }
         .link(to: .easeInOut(for: 0.3, action: {
             selectedTribune = unselected ? nil : tribune
@@ -165,7 +192,7 @@ struct SeatingChartView: View {
 
 struct SeatingChartView_Previews: PreviewProvider {
     static var previews: some View {
-        SeatingChartView()
+        SeatingChartView(zoomed: Binding.constant(false), selectedTicketsNumber: Binding.constant(5))
     }
 }
 
